@@ -6,7 +6,7 @@
 #    By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/02 09:55:12 by sbelomet          #+#    #+#              #
-#    Updated: 2024/01/02 15:45:36 by sbelomet         ###   ########.fr        #
+#    Updated: 2024/01/04 12:19:45 by sbelomet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ HEADERS		=	-I includes
 SRC_DIR		=	srcs/
 OBJ_DIR		=	objs/
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS		=	-Wall -Wextra -Werror
 
 # Colors
 
@@ -37,7 +37,7 @@ RAINBOW		=	$(RED)-$(YELLOW)-$(GREEN)-$(CYAN)-$(BLUE)-$(PURPLE)-
 
 #Sources
 
-FILES		=	main error_handling utils1
+FILES		=	main error_handling utils1 philos_phunctions
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
