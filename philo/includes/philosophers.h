@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:10:28 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/04 14:50:50 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:24:25 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 
 typedef struct s_philo
 {
-	int			name;
-	pthread_t	tid;
+	int				name;
+	pthread_t		tid;
+	struct s_base	*base;
 }				t_philo;
 
 typedef struct s_base
@@ -36,17 +37,16 @@ typedef struct s_base
 	t_philo	**philos;
 }		t_base;
 
-/* Error Handling */
-void	ft_error(char *message);
-void	ft_error_free(char *message, t_base *base);
-
 /* Utils */
 int		ft_numeric_check(char **tab);
 int		ft_strlen(char *s);
 int		ft_atoi(char *s);
-void	ft_free(t_base *base);
+void	ft_free(t_base base);
 
 /* Philos Phunctions */
-void	ft_philo_init(t_base *base);
+int		ft_philo_init(t_base *base);
+
+/* Feast Functions */
+int	ft_start_feast(t_base *base);
 
 #endif

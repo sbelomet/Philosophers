@@ -1,41 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   feast_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/02 10:43:44 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/04 14:50:59 by sbelomet         ###   ########.fr       */
+/*   Created: 2024/01/05 11:19:39 by sbelomet          #+#    #+#             */
+/*   Updated: 2024/01/05 14:38:36 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_error(char *message)
-{
-	printf("ERROR: %s\n", message);
-	exit(-1);
-}
-
-void	ft_error_free(char *message, t_base *base)
+int	ft_start_feast(t_base *base)
 {
 	int	i;
 
-	printf("ERROR: %s\n", message);
-	if (base)
+	i = 0;
+	while (i < base->nb_philo)
 	{
-		if (base->philos)
-		{
-			i = 0;
-			while (base->philos[i])
-			{
-				free(base->philos[i]);
-				i++;
-			}
-			free(base->philos);
-		}
-		free(base);
+		if (pthread_join(base->philos[i]->tid, NULL))
+			return (0);
+		i++;
 	}
-	exit(-1);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 12:18:55 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/04 14:51:59 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:39:02 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,38 @@
 
 void	*ft_routine(void *arg)
 {
+	t_philo	*philo;
 	t_base	*base;
 
-	base = (t_base *)arg;
-	printf("i die in %d ms\n", base->die_time);
+	philo = (t_philo *)arg;
+	base = philo->base;
+	printf("%d is eating for %d ms\n", philo->name, base->eat_time);
+	usleep(base->eat_time);
+	printf("%d done eating, sleep for %d ms\n", philo->name, base->sleep_time);
+	usleep(base->sleep_time);
 	return (NULL);
 }
 
-void	ft_philo_init(t_base *base)
+int	ft_philo_init(t_base *base)
 {
 	int		i;
 
-	base->philos = (t_philo **)malloc(base->nb_philo * sizeof(t_philo *));
+	base->philos = (t_philo **)malloc((base->nb_philo + 1) * sizeof(t_philo *));
 	if (!base->philos)
-		ft_error_free("Malloc failure (philos)", base);
+		return (0);
 	i = 0;
 	while (i < base->nb_philo)
 	{
 		base->philos[i] = (t_philo *)malloc(sizeof(t_philo));
 		if (!base->philos[i])
-			ft_error_free("Malloc failure (philos)", base);
+			return (0);
+		base->philos[i]->base = base;
+		base->philos[i]->name = i + 1;
 		if (pthread_create(&base->philos[i]->tid, NULL,
-				ft_routine, (void *)base))
-			ft_error_free("Thread creation failure", base);
+				ft_routine, (void *)base->philos[i]))
+			return (0);
 		i++;
 	}
-	i = 0;
-	while (i < base->nb_philo)
-	{
-		if (pthread_join(base->philos[i]->tid, NULL))
-			ft_error_free("Thread joining failure", base);
-		i++;
-	}
+	base->philos[i] = NULL;
+	return (1);
 }

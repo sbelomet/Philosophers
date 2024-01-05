@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:11:29 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/04 14:51:49 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:24:21 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,18 @@ int	ft_atoi(char *s)
 	return (res);
 }
 
-void	ft_free(t_base *base)
+void	ft_free(t_base base)
 {
 	int	i;
 
-	if (base)
+	if (base.philos)
 	{
-		if (base->philos)
+		i = 0;
+		while (base.philos[i])
 		{
-			i = 0;
-			while (base->philos[i])
-			{
-				free(base->philos[i]);
-				i++;
-			}
-			free(base->philos);
+			free(base.philos[i]);
+			i++;
 		}
-		free(base);
+		free(base.philos);
 	}
 }
