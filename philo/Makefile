@@ -6,7 +6,7 @@
 #    By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/02 09:55:12 by sbelomet          #+#    #+#              #
-#    Updated: 2024/01/05 14:35:36 by sbelomet         ###   ########.fr        #
+#    Updated: 2024/01/09 15:15:45 by sbelomet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ RAINBOW		=	$(RED)-$(YELLOW)-$(GREEN)-$(CYAN)-$(BLUE)-$(PURPLE)-
 
 #Sources
 
-FILES		=	main utils1 philos_phunctions feast_functions
+FILES		=	main utils1 utils2 philos_phunctions philos_utils
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 

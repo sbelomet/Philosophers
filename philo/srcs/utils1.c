@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 14:11:29 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/05 15:24:21 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:47:09 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,13 @@ void	ft_free(t_base base)
 		}
 		free(base.philos);
 	}
+	pthread_mutex_destroy(&base.mutex);
+}
+
+int	ft_gettime(void)
+{
+	struct timeval	t;
+
+	gettimeofday(&t, NULL);
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }

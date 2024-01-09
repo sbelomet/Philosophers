@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:10:28 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/05 15:24:25 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:07:47 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,49 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+# define BASE "\033[0;39m"
+# define RED "\033[1;91m"
+# define GREEN "\033[1;92m"
+# define BLUE "\033[1;94m"
+
 typedef struct s_philo
 {
 	int				name;
+	int				nb_eaten;
+	int				time_last_eat;
+	int				left_fork;
+	int				right_fork;
 	pthread_t		tid;
 	struct s_base	*base;
-}				t_philo;
+}					t_philo;
 
 typedef struct s_base
 {
-	int		nb_philo;
-	int		die_time;
-	int		eat_time;
-	int		sleep_time;
-	int		nb_eat;
-	t_philo	**philos;
-}		t_base;
+	int				nb_philo;
+	int				die_time;
+	int				eat_time;
+	int				sleep_time;
+	int				nb_eat;
+	int				starttime;
+	t_philo			**philos;
+	pthread_mutex_t	mutex;
+}					t_base;
 
 /* Utils */
 int		ft_numeric_check(char **tab);
 int		ft_strlen(char *s);
 int		ft_atoi(char *s);
 void	ft_free(t_base base);
+int		ft_gettime(void);
+void	ft_sleep(int usec);
+
+/* Philos Utils */
+int		ft_philo_init(t_base *base);
+int		ft_start_feast(t_base *base);
 
 /* Philos Phunctions */
-int		ft_philo_init(t_base *base);
-
-/* Feast Functions */
-int	ft_start_feast(t_base *base);
+void	ft_philo_eat(t_base *base, t_philo *philo);
+void	ft_philo_sleep(t_base *base, t_philo *philo);
+void	ft_philo_think(t_base *base, t_philo *philo);
 
 #endif
