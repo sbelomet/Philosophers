@@ -6,7 +6,7 @@
 #    By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/02 09:55:12 by sbelomet          #+#    #+#              #
-#    Updated: 2024/01/09 15:15:45 by sbelomet         ###   ########.fr        #
+#    Updated: 2024/01/10 11:56:17 by sbelomet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_DIR		=	srcs/
 OBJ_DIR		=	objs/
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
+LEAKS		=	leaks --atExit -- 
 
 # Colors
 
@@ -37,7 +38,7 @@ RAINBOW		=	$(RED)-$(YELLOW)-$(GREEN)-$(CYAN)-$(BLUE)-$(PURPLE)-
 
 #Sources
 
-FILES		=	main utils1 utils2 philos_phunctions philos_utils
+FILES		=	main utils1 utils2 philos_phunctions philos_utils threads_routines
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
@@ -70,4 +71,7 @@ fclean:			clean
 
 re:				fclean all
 
-.PHONY:			all clean fclean re
+run:			re
+					$(LEAKS)./$(NAME) 10 1000 200 200 10
+
+.PHONY:			all clean fclean re run

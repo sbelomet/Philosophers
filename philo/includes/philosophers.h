@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:10:28 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/09 15:07:47 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/10 15:03:48 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ typedef struct s_philo
 	int				name;
 	int				nb_eaten;
 	int				time_last_eat;
-	int				left_fork;
-	int				right_fork;
+	int				first_fork;
+	int				second_fork;
 	pthread_t		tid;
 	struct s_base	*base;
 }					t_philo;
 
 typedef struct s_base
 {
+	int				running;
 	int				nb_philo;
 	int				die_time;
 	int				eat_time;
@@ -45,7 +46,8 @@ typedef struct s_base
 	int				nb_eat;
 	int				starttime;
 	t_philo			**philos;
-	pthread_mutex_t	mutex;
+	pthread_t		watcher;
+	pthread_mutex_t	*fork_mutex;
 }					t_base;
 
 /* Utils */
@@ -58,11 +60,15 @@ void	ft_sleep(int usec);
 
 /* Philos Utils */
 int		ft_philo_init(t_base *base);
-int		ft_start_feast(t_base *base);
+int		ft_feast(t_base *base);
 
 /* Philos Phunctions */
 void	ft_philo_eat(t_base *base, t_philo *philo);
 void	ft_philo_sleep(t_base *base, t_philo *philo);
 void	ft_philo_think(t_base *base, t_philo *philo);
+
+/* Threads Routines */
+void	*ft_routine(void *arg);
+void	*ft_watching(void *arg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:13:36 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/09 15:31:39 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:04:27 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_base_init(t_base *base, int ac, char **av)
 {
+	base->running = 0;
 	base->nb_philo = ft_atoi(av[1]);
 	base->die_time = ft_atoi(av[2]);
 	base->eat_time = ft_atoi(av[3]);
@@ -45,6 +46,6 @@ int	main(int ac, char **av)
 		return (-1);
 	}
 	if (ft_base_init(&base, ac, av))
-		ft_start_feast(&base);
+		ft_feast(&base);
 	ft_free(base);
 }
