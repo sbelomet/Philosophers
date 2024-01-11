@@ -6,7 +6,7 @@
 #    By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/02 09:55:12 by sbelomet          #+#    #+#              #
-#    Updated: 2024/01/10 11:56:17 by sbelomet         ###   ########.fr        #
+#    Updated: 2024/01/11 12:47:31 by sbelomet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,6 +72,6 @@ fclean:			clean
 re:				fclean all
 
 run:			re
-					$(LEAKS)./$(NAME) 10 1000 200 200 10
+					$(LEAKS)./$(NAME) 10 1000 200 200 2
 
 .PHONY:			all clean fclean re run

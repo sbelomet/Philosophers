@@ -6,11 +6,28 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:13:36 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/10 14:04:27 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:08:04 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	ft_fork_init(t_base *base)
+{
+	int i;
+
+	base->forks = (int *)malloc((base->nb_philo + 1) * sizeof(int));
+	if (!base->forks)
+		return (0);
+	i = 0;
+	while (i < base->nb_philo)
+	{
+		base->forks[i] = 0;
+		i++;
+	}
+	base->forks[i] = -1;
+	return (1);
+}
 
 int	ft_base_init(t_base *base, int ac, char **av)
 {
@@ -23,6 +40,8 @@ int	ft_base_init(t_base *base, int ac, char **av)
 		base->nb_eat = ft_atoi(av[5]);
 	if (ac == 5)
 		base->nb_eat = -1;
+	if (!ft_fork_init(base))
+		return (0);
 	base->philos = NULL;
 	if (!ft_philo_init(base))
 		return (0);

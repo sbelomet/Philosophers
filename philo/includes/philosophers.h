@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:10:28 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/10 15:03:48 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:56:17 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_base
 	int				sleep_time;
 	int				nb_eat;
 	int				starttime;
+	int				*forks;
 	t_philo			**philos;
 	pthread_t		watcher;
 	pthread_mutex_t	*fork_mutex;
@@ -70,5 +71,9 @@ void	ft_philo_think(t_base *base, t_philo *philo);
 /* Threads Routines */
 void	*ft_routine(void *arg);
 void	*ft_watching(void *arg);
+
+/* Watcher Utils */
+int		ft_check_for_dead(t_base *base, t_philo *philo, int currenttime);
+int		ft_check_eaten_meals(t_base *base, t_philo *philo, int currenttime);
 
 #endif

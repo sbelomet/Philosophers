@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:51:47 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/10 13:47:01 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:59:07 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	*ft_watching(void *arg)
 	t_base	*base;
 	int		i;
 	int		currenttime;
+	int		done_eating; // TODO
 
 	base = (t_base *)arg;
 	while (!base->running)
@@ -54,13 +55,7 @@ void	*ft_watching(void *arg)
 		currenttime = ft_gettime();
 		while (base->philos[i])
 		{
-			if (base->die_time < currenttime - base->philos[i]->time_last_eat)
-			{
-				base->running = 0;
-				printf("%d %d has died\n",
-					currenttime - base->starttime, base->philos[i]->name);
-				break ;
-			}
+			ft_check_for_dead(base, base->philos[i], currenttime);
 			i++;
 		}
 	}
