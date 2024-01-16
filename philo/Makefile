@@ -6,7 +6,7 @@
 #    By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/02 09:55:12 by sbelomet          #+#    #+#              #
-#    Updated: 2024/01/11 12:47:31 by sbelomet         ###   ########.fr        #
+#    Updated: 2024/01/16 10:16:36 by sbelomet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,8 @@ RAINBOW		=	$(RED)-$(YELLOW)-$(GREEN)-$(CYAN)-$(BLUE)-$(PURPLE)-
 
 #Sources
 
-FILES		=	main utils1 utils2 philos_phunctions philos_utils threads_routines
+FILES		=	main utils1 utils2 philos_phunctions philos_utils \
+				watcher_utils threads_routines
 SRC			=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJ			=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 

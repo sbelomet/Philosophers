@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:51:47 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/11 13:59:07 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:59:12 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,22 @@ void	*ft_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	base = philo->base;
-	base->starttime = ft_gettime();
 	while (!base->running)
 	{
 	}
+	if (philo->name % 2)
+		ft_sleep(100);
+	if (base->nb_eat == 0)
+		return (NULL);
 	while (base->running)
 	{
-		if (philo->nb_eaten != -1 && philo->nb_eaten == base->nb_eat)
-		{
-			base->running = 0;
-			break ;
-		}
 		ft_philo_eat(base, philo);
-		ft_philo_sleep(base, philo);
-		ft_philo_think(base, philo);
-		philo->nb_eaten++;
+		if (base->nb_eat != -1 && base->nb_eat == philo->nb_eaten)
+			break ;
+		if (base->running)
+			ft_philo_sleep(base, philo);
+		if (base->running)
+			ft_philo_think(base, philo);
 	}
 	return (NULL);
 }
@@ -43,7 +44,6 @@ void	*ft_watching(void *arg)
 	t_base	*base;
 	int		i;
 	int		currenttime;
-	int		done_eating; // TODO
 
 	base = (t_base *)arg;
 	while (!base->running)
@@ -55,7 +55,8 @@ void	*ft_watching(void *arg)
 		currenttime = ft_gettime();
 		while (base->philos[i])
 		{
-			ft_check_for_dead(base, base->philos[i], currenttime);
+			if (!ft_check_for_dead(base, base->philos[i], currenttime))
+				break ;
 			i++;
 		}
 	}

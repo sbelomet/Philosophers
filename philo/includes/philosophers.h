@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:10:28 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/11 13:56:17 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:14:33 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	int				name;
 	int				nb_eaten;
 	int				time_last_eat;
+	int				dead_time;
 	int				first_fork;
 	int				second_fork;
 	pthread_t		tid;
@@ -45,9 +46,9 @@ typedef struct s_base
 	int				sleep_time;
 	int				nb_eat;
 	int				starttime;
-	int				*forks;
 	t_philo			**philos;
 	pthread_t		watcher;
+	pthread_mutex_t	base_mutex;
 	pthread_mutex_t	*fork_mutex;
 }					t_base;
 
@@ -58,9 +59,11 @@ int		ft_atoi(char *s);
 void	ft_free(t_base base);
 int		ft_gettime(void);
 void	ft_sleep(int usec);
+int		ft_isrunning(t_base *base);
 
 /* Philos Utils */
 int		ft_philo_init(t_base *base);
+int		ft_mutex_init(t_base *base);
 int		ft_feast(t_base *base);
 
 /* Philos Phunctions */
