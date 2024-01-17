@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:13:36 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/16 15:59:11 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:13:03 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	main(int ac, char **av)
 		printf("Positive numbers only plz\n");
 		return (-1);
 	}
+	if (ft_atoi(av[1]) == 0)
+		return (0);
 	if (ft_base_init(&base, ac, av))
 		ft_feast(&base);
 	ft_free(base);

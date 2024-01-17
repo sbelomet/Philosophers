@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:10:28 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/16 13:14:33 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:12:32 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_free(t_base base);
 int		ft_gettime(void);
 void	ft_sleep(int usec);
 int		ft_isrunning(t_base *base);
+void	ft_one_philo(t_base *base, t_philo *philo);
 
 /* Philos Utils */
 int		ft_philo_init(t_base *base);
@@ -77,6 +78,5 @@ void	*ft_watching(void *arg);
 
 /* Watcher Utils */
 int		ft_check_for_dead(t_base *base, t_philo *philo, int currenttime);
-int		ft_check_eaten_meals(t_base *base, t_philo *philo, int currenttime);
 
 #endif

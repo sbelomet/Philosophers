@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:20:54 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/16 11:55:05 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:13:28 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,11 @@ int	ft_isrunning(t_base *base)
 	}
 	pthread_mutex_unlock(&base->base_mutex);
 	return (0);
+}
+
+void	ft_one_philo(t_base *base, t_philo *philo)
+{
+	pthread_mutex_unlock(&base->fork_mutex[philo->first_fork]);
+	printf("0 1 has taken a fork\n");
+	ft_sleep((base->die_time + 1) * 1000);
 }

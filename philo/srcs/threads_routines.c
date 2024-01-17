@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:51:47 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/16 15:59:12 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:31:12 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ void	*ft_routine(void *arg)
 		ft_sleep(100);
 	if (base->nb_eat == 0)
 		return (NULL);
-	while (base->running)
+	while (ft_isrunning(base))
 	{
-		ft_philo_eat(base, philo);
+		if (ft_isrunning(base))
+			ft_philo_eat(base, philo);
 		if (base->nb_eat != -1 && base->nb_eat == philo->nb_eaten)
 			break ;
-		if (base->running)
+		if (ft_isrunning(base))
 			ft_philo_sleep(base, philo);
-		if (base->running)
+		if (ft_isrunning(base))
 			ft_philo_think(base, philo);
 	}
 	return (NULL);

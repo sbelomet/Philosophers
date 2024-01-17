@@ -6,7 +6,7 @@
 /*   By: sbelomet <sbelomet@42lausanne.ch>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:31 by sbelomet          #+#    #+#             */
-/*   Updated: 2024/01/16 16:02:58 by sbelomet         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:12:45 by sbelomet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,30 @@
 
 void	ft_philo_eat(t_base *base, t_philo *philo)
 {
-	int currenttime;
-
-	currenttime = ft_gettime();
 	if (pthread_mutex_lock(&base->fork_mutex[philo->first_fork]) == 0)
 	{
-		printf("%d %d has taken a fork\n", currenttime - base->starttime, philo->name);
+		if (base->nb_philo < 2)
+			ft_one_philo(base, philo);
+		if (!ft_isrunning(base))
+			return ;
+		printf("%d %d has taken a fork\n",
+			ft_gettime() - base->starttime, philo->name);
 		if (pthread_mutex_lock(&base->fork_mutex[philo->second_fork]) == 0)
 		{
-			printf("%d %d has taken a fork\n", currenttime - base->starttime, philo->name);
-			philo->time_last_eat = currenttime;
-			if (!base->running)
+			if (!ft_isrunning(base))
 				return ;
+			philo->time_last_eat = ft_gettime();
+			printf("%d %d has taken a fork\n",
+				philo->time_last_eat - base->starttime, philo->name);
 			printf("%d %d is "RED"eating"BASE"\n",
 				philo->time_last_eat - base->starttime, philo->name);
 			philo->nb_eaten++;
-			philo->dead_time = philo->time_last_eat - base->starttime + base->die_time;
+			philo->dead_time = philo->time_last_eat
+				- base->starttime + base->die_time;
 			ft_sleep(base->eat_time * 1000);
-			pthread_mutex_unlock(&base->fork_mutex[philo->first_fork]);
 			pthread_mutex_unlock(&base->fork_mutex[philo->second_fork]);
 		}
-		printf("hello\n");
+		pthread_mutex_unlock(&base->fork_mutex[philo->first_fork]);
 	}
 }
 
